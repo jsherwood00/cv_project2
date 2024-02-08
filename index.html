@@ -1,9 +1,121 @@
 <!DOCTYPE html>
 
 <head>
-    <title>test page</title>
+    <title>Joshua Sherwood: Project 2</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>test text</h1>
+    <div class="title">
+        Project 2: Image classification accuracy with added blur
+    </div>
+    <div class="description">
+        I used the ResNet101 model pre-trained on ImageNet, with default weights.
+        I followed <a href = 'https://learnopencv.com/pytorch-for-beginners-image-classification-using-pre-trained-models/'>this</a> tutorial to set up the Python, it was my first experience using image classifiers.
+        To produce the corrupted image, I used Gaussian Blur from <a href="https://pillow.readthedocs.io/en/stable/_modules/PIL/ImageFilter.html#GaussianBlur">Pillow.</a>
+        I chose to use blur mostly because it was simple, and I don't have much experience in computer vision.
+        I am interested in understanding how adding blur affects the vector (rbg -> embedding) representation of the data, but I don't know enough about how Gaussian Blur modifies either type of vector for this to be the main reason.
+        I chose a vending machine because vending machines generally take up a large part of the frame, which I suppose reduces evaluation error from detecting secondary objects.
+        Also, 'vending machine' is an ImageNet class, and I chose one of the first few Google search results, so the model should be able to classify it well.
+    </div>
+    
+    <div class="details">
+        To blur the image, a series of radii were passed as argument to the blur function, then the resulting imaging passed through the classifier.
+        <br>
+        Here are the modified versions of the original image, with increasing radii, and rounded confidence values produced by the classifier:
+    </div>
+
+    <div class = "images">
+        <div class="image">
+            <img src="assets/vending_machine.jpg" alt="Original image of a vending machine" width="256" height="256">
+            <div class="caption">Original <br> Confidence: 84.69</div>
+        </div>
+
+        <div class="image">
+            <img src="assets/vending_machine_blur_5.jpg" alt="Blur 5" width="256" height="256">
+            <div class="caption">Blur radius: 5 <br> Confidence: 88.43</div>
+        </div>
+
+        <div class="image">
+            <img src="assets/vending_machine_blur_10.jpg" alt="Blur 10" width="256" height="256">
+            <div class="caption">Blur radius: 10 <br> Confidence: 86.24</div>
+        </div>
+
+        <div class="image">
+            <img src="assets/vending_machine_blur_15.jpg" alt="Blur 15" width="256" height="256">
+            <div class="caption">Blur radius: 15 <br> Confidence: 83.75</div>
+        </div>
+
+        <div class="image">
+            <img src="assets/vending_machine_blur_20.jpg" alt="Blur 20" width="256" height="256">
+            <div class="caption">Blur radius: 20 <br> Confidence: 83.13</div>
+        </div>
+    </div>
+
+    <div class = "images">
+        <div class="image">
+            <img src="assets/vending_machine_blur_25.jpg" alt="Blur 25" width="256" height="256">
+            <div class="caption">Blur radius: 25 <br> Confidence: 84.55</div>
+        </div>
+
+        <div class="image">
+            <img src="assets/vending_machine_blur_30.jpg" alt="Blur 30" width="256" height="256">
+            <div class="caption">Blur radius: 30 <br> Confidence: 79.88</div>
+        </div>
+
+        <div class="image">
+            <img src="assets/vending_machine_blur_35.jpg" alt="Blur 35" width="256" height="256">
+            <div class="caption">Blur radius: 35 <br> Confidence: 79.59</div>
+        </div>
+
+        <div class="image">
+            <img src="assets/vending_machine_blur_40.jpg" alt="Blur 40" width="256" height="256">
+            <div class="caption">Blur radius: 40 <br> Confidence: 80.01</div>
+        </div>
+
+        <div class="image">
+            <img src="assets/vending_machine_blur_45.jpg" alt="Blur 45" width="256" height="256">
+            <div class="caption">Blur radius: 45 <br> Confidence: 71.232</div>
+        </div>
+    </div>
+
+    <div class="images">
+        <div class="image">
+            <img src="assets/vending_machine_blur_50.jpg" alt="Blur 50" width="256" height="256">
+            <div class="caption">Blur radius: 50 <br> Confidence: 53.221</div>
+        </div>
+
+        <div class="image">
+            <img src="assets/vending_machine_blur_55.jpg" alt="Blur 55" width="256" height="256">
+            <div class="caption">Blur radius: 55 <br> Confidence: 33.17</div>
+        </div>
+
+        <div class="image">
+            <img src="assets/vending_machine_blur_60.jpg" alt="Blur 60" width="256" height="256">
+            <div class="caption">Blur radius: 60 <br> Confidence: 13.16</div>
+        </div>
+
+        <div class="image">
+            <img src="assets/vending_machine_blur_65.jpg" alt="Blur 65" width="256" height="256">
+            <div class="caption">Blur radius: 65 <br> Confidence: 5.14</div>
+        </div>
+    </div>
+
+    <div class="results">
+        The model classified accurately up to a blur radius of 60. At blur radius 65, confidence was ~5.14, and less than the "remote control, remote" class at ~16.05. 
+        At blur radius of 70, 'vending machine' was no longer one of the top 10 classes determined by the classifier.
+        <br>
+        <br>
+        <img src="assets/data.png" alt="Graph displaying accuracy for different levels of blur" width=auto height=auto>
+        <br>
+        <br>
+        An interesting trend is the drop-off in accuracy between 40(80.01) and 50(53.22). I learned the basics of using a classifier, that ImageNet does not have an apple class,
+        that blur has an interesting effect on the accuracy, especially in where the cutoff for accurate classification is. I've developed further interest in understanding computer vision, including
+        image classification and understanding the vector math behind it (as it is hard to tell what is going on without understanding this).
+    </div>
+
+    <div class="source">
+        Here is my source code:
+        <a href="main.html">main.py</a> , <a href="blur.html">blur.py</a>, <a href="labels.html">labels.py</a>
+    </div>
 </body>
